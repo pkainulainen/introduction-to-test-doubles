@@ -74,6 +74,9 @@ class TodoItemFinderServiceTest {
         @Test
         @DisplayName("Should throw exception")
         void shouldThrowException() {
+            //This isn't a good test. I wrote this only because I didn't want that
+            //this test fails when an unexpected invocation happens between the
+            //system under test and our stub.
             assertThatThrownBy(() -> service.findById(UNKNOWN_ID))
                     .isExactlyInstanceOf(UnexpectedInteractionException.class);
         }
