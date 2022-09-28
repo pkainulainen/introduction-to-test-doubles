@@ -99,6 +99,10 @@ class TodoItemRepositoryMock implements TodoItemRepository {
         );
     }
 
+    private boolean invocationIsExpected(Long id) {
+        return (id != null) && id.equals(this.expectedIdArgument);
+    }
+
     /**
      * Verifies that the {@link deleteById(Long)} method was called
      * and the correct id was passed to the invoked method.
@@ -129,9 +133,5 @@ class TodoItemRepositoryMock implements TodoItemRepository {
                         actualIdArgument
                 )
                 .isEqualTo(expectedIdArgument);
-    }
-
-    private boolean invocationIsExpected(Long id) {
-        return (id != null) && id.equals(this.expectedIdArgument);
     }
 }
