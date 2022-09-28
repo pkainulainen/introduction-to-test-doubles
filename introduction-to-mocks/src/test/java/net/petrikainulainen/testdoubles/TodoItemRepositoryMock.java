@@ -119,10 +119,10 @@ class TodoItemRepositoryMock implements TodoItemRepository {
         //the deleteById() method was invoked and the expected argument
         //was passed to it.
         //
-        //However, I added this assertion here we have to check the value of
+        //However, I added this assertion here because we have to check the value of
         //the actual argument if:
         //
-        //1) The stubbed methods implement by this class return the default
+        //1) A stubbed method implemented by this class returns the default
         //   value if an unexpected invocation occurs.
         //2) We don't have to stub the invoked method because it doesn't
         //   return anything.
