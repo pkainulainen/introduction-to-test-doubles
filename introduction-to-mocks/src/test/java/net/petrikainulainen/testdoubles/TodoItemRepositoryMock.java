@@ -109,7 +109,7 @@ class TodoItemRepositoryMock implements TodoItemRepository {
      */
     public void verify() {
         assertThat(deleteByIdCalled)
-                .overridingErrorMessage("Expected that the deleteById() method was called once but it was not called.")
+                .overridingErrorMessage("Expected that the deleteById() method was called but it was not called.")
                 .isTrue();
 
         //This assertion isn't required because the stubbed method throws
