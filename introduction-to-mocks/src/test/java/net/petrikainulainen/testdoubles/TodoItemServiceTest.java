@@ -10,15 +10,15 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 public class TodoItemServiceTest {
 
+    private static final long TODO_ITEM_ID = 4L;
+    private static final String TODO_ITEM_TITLE = "FooBar";
+
     private TodoItemService service;
     private TodoItemRepositoryMock repository;
 
     @Nested
-    @DisplayName("Delete todo item by id")
-    class DeleteById {
-
-        private static final long TODO_ITEM_ID = 4L;
-        private static final String TODO_ITEM_TITLE = "FooBar";
+    @DisplayName("When the invocation is expected")
+    class WhenInvocationIsExcepted {
 
         @Nested
         @DisplayName("When the todo item isn't found")
@@ -48,13 +48,6 @@ public class TodoItemServiceTest {
                 service = new TodoItemService(repository);
             }
 
-            private TodoItem createDeletedTodoItem() {
-                TodoItem deleted = new TodoItem();
-                deleted.setId(TODO_ITEM_ID);
-                deleted.setTitle(TODO_ITEM_TITLE);
-                return deleted;
-            }
-
             @Test
             @DisplayName("Should return a todo item with the correct id")
             void shouldReturnTodoItemWithCorrectId() {
@@ -76,5 +69,36 @@ public class TodoItemServiceTest {
                 repository.verify();
             }
         }
+    }
+
+    @Nested
+    @DisplayName("When the invocation is unexpected")
+    class WhenInvocationIsUnexpected {
+
+        private static final long UNKNOWN_ID = 999L;
+
+        @BeforeEach
+        void configureSystemUnderTest() {
+            TodoItem deleted = createDeletedTodoItem();
+            repository = new TodoItemRepositoryMock(deleted);
+            service = new TodoItemService(repository);
+        }
+
+        @Test
+        @DisplayName("Should throw exception")
+        void shouldThrowException() {
+            //This isn't a good test. I wrote this only because I didn't want that
+            //this test fails when an unexpected invocation happens between the
+            //system under test and our stub.
+            assertThatThrownBy(() -> service.deleteById(UNKNOWN_ID))
+                    .isExactlyInstanceOf(UnexpectedInteractionException.class);
+        }
+    }
+
+    private TodoItem createDeletedTodoItem() {
+        TodoItem deleted = new TodoItem();
+        deleted.setId(TODO_ITEM_ID);
+        deleted.setTitle(TODO_ITEM_TITLE);
+        return deleted;
     }
 }
