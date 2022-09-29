@@ -1,6 +1,6 @@
 # Introduction to Mocks
 
-This an example application of the blog post: [Introduction to Mocks](/programming/testing/introduction-to-mocks/).
+This an example application of the blog post: [Introduction to Mocks](https://www.petrikainulainen.net/programming/testing/introduction-to-mocks/).
 
 ## Running Tests
 
