@@ -17,7 +17,7 @@ class TodoItemRepositoryMock implements TodoItemRepository {
     private final boolean todoItemNotFound;
 
     private Long actualIdArgument;
-    private boolean deleteByIdCalled;
+    private int deleteByIdInvocationCount = 0;
 
     /**
      * Disable the no argument constructor.
@@ -65,7 +65,7 @@ class TodoItemRepositoryMock implements TodoItemRepository {
 
     @Override
     public TodoItem deleteById(Long id) {
-        this.deleteByIdCalled = true;
+        this.deleteByIdInvocationCount++;
         this.actualIdArgument = id;
 
         if (invocationIsExpected(id)) {
@@ -108,9 +108,12 @@ class TodoItemRepositoryMock implements TodoItemRepository {
      * and the correct id was passed to the invoked method.
      */
     public void verify() {
-        assertThat(deleteByIdCalled)
-                .overridingErrorMessage("Expected that the deleteById() method was called but it was not called.")
-                .isTrue();
+        assertThat(deleteByIdInvocationCount)
+                .overridingErrorMessage(
+                        "Expected that the deleteById() method was called once but was called %d times.",
+                        deleteByIdInvocationCount
+                )
+                .isOne();
 
         //This assertion isn't required because the stubbed method throws
         //an exception if the system under test invokes it by using an
