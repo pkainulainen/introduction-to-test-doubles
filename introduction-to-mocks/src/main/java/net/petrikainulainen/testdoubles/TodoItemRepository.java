@@ -1,7 +1,5 @@
 package net.petrikainulainen.testdoubles;
 
-import java.util.Optional;
-
 /**
  * Provides CRUD operations for {@link TodoItem} objects.
  */
