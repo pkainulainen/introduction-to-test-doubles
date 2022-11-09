@@ -22,21 +22,17 @@ class TodoItemRepositoryFake implements TodoItemRepository {
     }
 
     @Override
-    public TodoItem findById(Long id) {
-        return findTodoItem(id);
+    public Optional<TodoItem> findById(Long id) {
+        return Optional.ofNullable(todoItems.get(id));
     }
 
     @Override
     public TodoItem update(TodoItem newInformation) {
-        TodoItem updated = findTodoItem(newInformation.getId());
+        TodoItem updated = Optional.ofNullable(todoItems.get(newInformation.getId()))
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("No todo item found with id: #%d", newInformation.getId())
+                ));
         updated.setTitle(newInformation.getTitle());
         return updated;
-    }
-
-    private TodoItem findTodoItem(Long id) {
-        return Optional.ofNullable(todoItems.get(id))
-                .orElseThrow(() -> new NotFoundException(
-                        String.format("No todo item found with id: #%d", id)
-                ));
     }
 }

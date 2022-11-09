@@ -18,7 +18,11 @@ public class TodoItemService {
      * @throws NotFoundException    if the requested todo item isn't found from the database.
      */
     public TodoItem update(TodoItem newInformation) {
-        TodoItem updated = repository.findById(newInformation.getId());
+        TodoItem updated = repository.findById(newInformation.getId())
+                        .orElseThrow(() -> new NotFoundException(String.format(
+                                "No todo item found with id: #%d",
+                                newInformation.getId()
+                        )));
         updated.setTitle(newInformation.getTitle());
         return repository.update(updated);
     }
