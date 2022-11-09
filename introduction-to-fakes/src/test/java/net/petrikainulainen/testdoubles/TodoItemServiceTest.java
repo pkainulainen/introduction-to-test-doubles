@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 /**
  * This test demonstrates how we can use our fake when
@@ -44,6 +46,18 @@ class TodoItemServiceTest {
                 assertThatThrownBy(() -> service.update(newInformation))
                         .isExactlyInstanceOf(NotFoundException.class);
             }
+
+            @Test
+            @DisplayName("Shouldn't update the existing todo item")
+            void shouldNotUpdateExistingTodoItem() {
+                catchThrowable(() -> service.update(newInformation));
+
+                TodoItem existing = repository.findById(TodoItems.WriteBlogPost.ID).get();
+                assertSoftly((softAssertions) -> {
+                    softAssertions.assertThat(existing.getId()).as("id").isEqualByComparingTo(TodoItems.WriteBlogPost.ID);
+                    softAssertions.assertThat(existing.getTitle()).as("title").isEqualTo(TodoItems.WriteBlogPost.TITLE);
+                });
+            }
         }
 
         @Nested
@@ -55,6 +69,29 @@ class TodoItemServiceTest {
                 newInformation = new TodoItem();
                 newInformation.setId(TodoItems.WriteBlogPost.ID);
                 newInformation.setTitle(TodoItems.NEW_TITLE);
+            }
+
+            @Test
+            @DisplayName("Should return the updated information of the found todo item")
+            void shouldReturnUpdatedInformationOfFoundTodoItem() {
+                TodoItem returned = service.update(newInformation);
+
+                assertSoftly((softAssertions) -> {
+                    softAssertions.assertThat(returned.getId()).as("id").isEqualByComparingTo(TodoItems.WriteBlogPost.ID);
+                    softAssertions.assertThat(returned.getTitle()).as("title").isEqualTo(TodoItems.NEW_TITLE);
+                });
+            }
+
+            @Test
+            @DisplayName("Should update the information of the found todo item")
+            void shouldUpdateInformationOfFoundTodoItem() {
+                service.update(newInformation);
+
+                TodoItem updated = repository.findById(TodoItems.WriteBlogPost.ID).get();
+                assertSoftly((softAssertions) -> {
+                    softAssertions.assertThat(updated.getId()).as("id").isEqualByComparingTo(TodoItems.WriteBlogPost.ID);
+                    softAssertions.assertThat(updated.getTitle()).as("title").isEqualTo(TodoItems.NEW_TITLE);
+                });
             }
         }
     }
