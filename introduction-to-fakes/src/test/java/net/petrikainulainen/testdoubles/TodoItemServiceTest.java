@@ -52,7 +52,7 @@ class TodoItemServiceTest {
             void shouldNotUpdateExistingTodoItem() {
                 catchThrowable(() -> service.update(newInformation));
 
-                TodoItem existing = repository.findById(TodoItems.WriteBlogPost.ID).get();
+                var existing = repository.findById(TodoItems.WriteBlogPost.ID).get();
                 assertSoftly((softAssertions) -> {
                     softAssertions.assertThat(existing.getId()).as("id").isEqualByComparingTo(TodoItems.WriteBlogPost.ID);
                     softAssertions.assertThat(existing.getTitle()).as("title").isEqualTo(TodoItems.WriteBlogPost.TITLE);
@@ -74,7 +74,7 @@ class TodoItemServiceTest {
             @Test
             @DisplayName("Should return the updated information of the found todo item")
             void shouldReturnUpdatedInformationOfFoundTodoItem() {
-                TodoItemDTO returned = service.update(newInformation);
+                var returned = service.update(newInformation);
 
                 assertSoftly((softAssertions) -> {
                     softAssertions.assertThat(returned.getId()).as("id").isEqualByComparingTo(TodoItems.WriteBlogPost.ID);
@@ -87,7 +87,7 @@ class TodoItemServiceTest {
             void shouldUpdateInformationOfFoundTodoItem() {
                 service.update(newInformation);
 
-                TodoItem updated = repository.findById(TodoItems.WriteBlogPost.ID).get();
+                var updated = repository.findById(TodoItems.WriteBlogPost.ID).get();
                 assertSoftly((softAssertions) -> {
                     softAssertions.assertThat(updated.getId()).as("id").isEqualByComparingTo(TodoItems.WriteBlogPost.ID);
                     softAssertions.assertThat(updated.getTitle()).as("title").isEqualTo(TodoItems.NEW_TITLE);

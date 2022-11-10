@@ -14,7 +14,7 @@ class TodoItemRepositoryFake implements TodoItemRepository {
     private static final Map<Long, TodoItem> todoItems = new HashMap<>();
 
     TodoItemRepositoryFake() {
-        TodoItem writeBlogPost = new TodoItem();
+        var writeBlogPost = new TodoItem();
         writeBlogPost.setId(TodoItems.WriteBlogPost.ID);
         writeBlogPost.setTitle(TodoItems.WriteBlogPost.TITLE);
 
@@ -28,7 +28,7 @@ class TodoItemRepositoryFake implements TodoItemRepository {
 
     @Override
     public TodoItem update(TodoItem newInformation) {
-        TodoItem updated = Optional.ofNullable(todoItems.get(newInformation.getId()))
+        var updated = Optional.ofNullable(todoItems.get(newInformation.getId()))
                 .orElseThrow(() -> new NotFoundException(
                         String.format("No todo item found with id: #%d", newInformation.getId())
                 ));

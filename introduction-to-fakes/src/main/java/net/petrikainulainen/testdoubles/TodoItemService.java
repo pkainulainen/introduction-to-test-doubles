@@ -18,19 +18,19 @@ public class TodoItemService {
      * @throws NotFoundException    if the requested todo item isn't found from the database.
      */
     public TodoItemDTO update(TodoItemDTO newInformation) {
-        TodoItem updated = repository.findById(newInformation.getId())
+        var updated = repository.findById(newInformation.getId())
                         .orElseThrow(() -> new NotFoundException(String.format(
                                 "No todo item found with id: #%d",
                                 newInformation.getId()
                         )));
         updated.setTitle(newInformation.getTitle());
 
-        TodoItem returned = repository.update(updated);
+        var returned = repository.update(updated);
         return mapToDTO(returned);
     }
 
     private TodoItemDTO mapToDTO(TodoItem model) {
-        TodoItemDTO dto = new TodoItemDTO();
+        var dto = new TodoItemDTO();
         dto.setId(model.getId());
         dto.setTitle(model.getTitle());
         return dto;
