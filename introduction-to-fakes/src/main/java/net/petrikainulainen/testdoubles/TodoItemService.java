@@ -17,13 +17,22 @@ public class TodoItemService {
      * @return  The information of the updated todo item.
      * @throws NotFoundException    if the requested todo item isn't found from the database.
      */
-    public TodoItem update(TodoItem newInformation) {
+    public TodoItemDTO update(TodoItemDTO newInformation) {
         TodoItem updated = repository.findById(newInformation.getId())
                         .orElseThrow(() -> new NotFoundException(String.format(
                                 "No todo item found with id: #%d",
                                 newInformation.getId()
                         )));
         updated.setTitle(newInformation.getTitle());
-        return repository.update(updated);
+
+        TodoItem returned = repository.update(updated);
+        return mapToDTO(returned);
+    }
+
+    private TodoItemDTO mapToDTO(TodoItem model) {
+        TodoItemDTO dto = new TodoItemDTO();
+        dto.setId(model.getId());
+        dto.setTitle(model.getTitle());
+        return dto;
     }
 }

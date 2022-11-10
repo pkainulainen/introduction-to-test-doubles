@@ -28,7 +28,7 @@ class TodoItemServiceTest {
     @DisplayName("Update todo time")
     class UpdateTodoItem {
 
-        private TodoItem newInformation;
+        private TodoItemDTO newInformation;
 
         @Nested
         @DisplayName("When the updated todo item isn't found")
@@ -36,7 +36,7 @@ class TodoItemServiceTest {
 
             @BeforeEach
             void createUpdatedTodoItem() {
-                newInformation = new TodoItem();
+                newInformation = new TodoItemDTO();
                 newInformation.setId(TodoItems.UNKNOWN_ID);
             }
 
@@ -66,7 +66,7 @@ class TodoItemServiceTest {
 
             @BeforeEach
             void createUpdatedTodoItem() {
-                newInformation = new TodoItem();
+                newInformation = new TodoItemDTO();
                 newInformation.setId(TodoItems.WriteBlogPost.ID);
                 newInformation.setTitle(TodoItems.NEW_TITLE);
             }
@@ -74,7 +74,7 @@ class TodoItemServiceTest {
             @Test
             @DisplayName("Should return the updated information of the found todo item")
             void shouldReturnUpdatedInformationOfFoundTodoItem() {
-                TodoItem returned = service.update(newInformation);
+                TodoItemDTO returned = service.update(newInformation);
 
                 assertSoftly((softAssertions) -> {
                     softAssertions.assertThat(returned.getId()).as("id").isEqualByComparingTo(TodoItems.WriteBlogPost.ID);
