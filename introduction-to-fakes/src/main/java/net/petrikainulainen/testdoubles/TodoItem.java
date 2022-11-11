@@ -3,7 +3,7 @@ package net.petrikainulainen.testdoubles;
 /**
  * Contains the information of one todo item.
  */
-public class TodoItem {
+class TodoItem {
 
     private Long id;
     private String title;
