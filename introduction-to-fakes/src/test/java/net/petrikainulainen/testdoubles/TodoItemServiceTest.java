@@ -72,8 +72,8 @@ class TodoItemServiceTest {
             }
 
             @Test
-            @DisplayName("Should return the updated information of the found todo item")
-            void shouldReturnUpdatedInformationOfFoundTodoItem() {
+            @DisplayName("Should return the information of the updated todo item")
+            void shouldReturnInformationOfUpdatedTodoItem() {
                 var returned = service.update(newInformation);
 
                 assertSoftly((softAssertions) -> {
