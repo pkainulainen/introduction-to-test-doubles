@@ -11,7 +11,7 @@ import java.util.Optional;
  */
 class TodoItemRepositoryFake implements TodoItemRepository {
 
-    private static final Map<Long, TodoItem> todoItems = new HashMap<>();
+    private final Map<Long, TodoItem> todoItems = new HashMap<>();
 
     TodoItemRepositoryFake() {
         var writeBlogPost = new TodoItem();
