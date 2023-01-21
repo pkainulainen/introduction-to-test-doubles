@@ -1,10 +1,9 @@
 package net.petrikainulainen.testdoubles;
 
 /**
- * Specifies the possible actions which can be performed for
- * audited entities.
+ * Specifies the possible actions.
  */
-public enum AuditLogAction {
+enum AuditLogAction {
 
     /**
      * A new row was inserted into the database.
