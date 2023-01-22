@@ -11,11 +11,7 @@ import java.util.List;
  */
 class TodoItemAuditLogSpy implements TodoItemAuditLog {
 
-    private List<MethodInvocationArguments> arguments;
-
-    TodoItemAuditLogSpy() {
-        this.arguments = new ArrayList<>();
-    }
+    private final List<MethodInvocationArguments> arguments = new ArrayList<>();
 
     @Override
     public void logTodoItem(Long userId, AuditLogAction action, TodoItem todoItem) {
