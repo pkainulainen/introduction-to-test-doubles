@@ -29,8 +29,8 @@ class TodoItemAuditLogSpy implements TodoItemAuditLog {
     /**
      * Returns the arguments of the specified method invocation.
      *
-     * @param methodInvocationIndex The index of the method invocation.
-     * @return  The
+     * @param methodInvocationIndex The index (zero-based) of the method invocation.
+     * @return
      */
     MethodInvocationArguments getArgumentsForMethodInvocation(int methodInvocationIndex) {
         if (methodInvocationIndex > arguments.size() - 1) {
